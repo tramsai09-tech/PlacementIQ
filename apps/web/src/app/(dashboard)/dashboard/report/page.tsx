@@ -174,13 +174,13 @@ export default function ReportPage() {
                   <p className="text-sm text-text-secondary">Aggregated from all data points</p>
                 </div>
                 <div className="flex items-end gap-1">
-                  <span className="text-4xl font-display font-bold text-primary">{Math.round(analysis.placementScore.overall)}</span>
+                  <span className="text-4xl font-display font-bold text-primary">{Math.round(analysis.overallScore || 0)}</span>
                   <span className="text-lg text-text-secondary mb-1">/100</span>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                {Object.entries(analysis.placementScore.breakdown).slice(0, 3).map(([key, comp]: [string, any]) => (
+                {Object.entries(analysis.scoreBreakdown || {}).slice(0, 3).map(([key, comp]: [string, any]) => (
                   <div key={key} className="p-3 bg-surface-3/50 rounded-lg border border-border">
                     <span className="text-xs text-text-secondary block mb-1 capitalize">
                       {key.replace(/([A-Z])/g, ' $1').trim()}
