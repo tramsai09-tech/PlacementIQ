@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ─────────────────────────────────────────────────── */
+:root {
+  --bg: #2C2E43;
+  --surface: #3B3D55;
+  --surface-2: #464860;
+  --surface-3: #52546b;
+  --primary: #18BADD;
+  --accent: #3039A1;
+  --success: #00D97E;
+  --warning: #FFB547;
+  --danger: #FF6B6B;
+  --text: #E6E6E2;
+  --text-secondary: #D0DDE6;
+  --border: rgba(230, 230, 226, 0.08);
+  --border-focus: rgba(24, 186, 221, 0.4);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(24, 186, 221, 0.25);
+  color: var(--text);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(230, 230, 226, 0.12);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(24, 186, 221, 0.4);
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+code, pre, .mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ─── Component Layer ─────────────────────────────────────────────────────────── */
+@layer components {
+  /* Glass Card */
+  .glass-card {
+    @apply relative overflow-hidden rounded-2xl border;
+    background: rgba(59, 61, 85, 0.7);
+    border-color: rgba(230, 230, 226, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(230,230,226,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Gradient Border */
+  .gradient-border {
+    position: relative;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(24, 186, 221, 0.5), rgba(48, 57, 161, 0.3), transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Primary Button */
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-sm transition-all duration-200 overflow-hidden;
+    background: linear-gradient(135deg, #18BADD 0%, #3039A1 100%);
+    color: #E6E6E2;
+    box-shadow: 0 0 20px rgba(24, 186, 221, 0.25);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 30px rgba(24, 186, 221, 0.4);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  /* Ghost Button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-sm transition-all duration-200;
+    color: var(--text-secondary);
+    border: 1px solid rgba(230, 230, 226, 0.08);
+    background: transparent;
+  }
+
+  .btn-ghost:hover {
+    background: rgba(230, 230, 226, 0.04);
+    color: var(--text);
+    border-color: rgba(230, 230, 226, 0.15);
+  }
+
+  /* Input */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl text-sm transition-all duration-200 outline-none;
+    background: rgba(230, 230, 226, 0.03);
+    border: 1px solid rgba(230, 230, 226, 0.08);
+    color: var(--text);
+  }
+
+  .input-field::placeholder {
+    color: var(--text-secondary);
+  }
+
+  .input-field:focus {
+    border-color: rgba(24, 186, 221, 0.4);
+    background: rgba(24, 186, 221, 0.03);
+    box-shadow: 0 0 0 3px rgba(24, 186, 221, 0.08);
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-primary {
+    background: rgba(24, 186, 221, 0.12);
+    color: var(--primary);
+    border: 1px solid rgba(24, 186, 221, 0.2);
+  }
+
+  .badge-success {
+    background: rgba(0, 217, 126, 0.12);
+    color: var(--success);
+    border: 1px solid rgba(0, 217, 126, 0.2);
+  }
+
+  .badge-warning {
+    background: rgba(255, 181, 71, 0.12);
+    color: var(--warning);
+    border: 1px solid rgba(255, 181, 71, 0.2);
+  }
+
+  .badge-danger {
+    background: rgba(255, 107, 107, 0.12);
+    color: var(--danger);
+    border: 1px solid rgba(255, 107, 107, 0.2);
+  }
+
+  /* Skeleton Loader */
+  .skeleton {
+    @apply rounded-lg;
+    background: linear-gradient(90deg,
+      rgba(230, 230, 226, 0.04) 25%,
+      rgba(230, 230, 226, 0.08) 50%,
+      rgba(230, 230, 226, 0.04) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.8s ease-in-out infinite;
+  }
+
+  /* Progress Bar */
+  .progress-bar {
+    @apply relative h-2 rounded-full overflow-hidden;
+    background: rgba(230, 230, 226, 0.06);
+  }
+
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-700 ease-out;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+  }
+
+  /* Score Ring */
+  .score-ring-bg {
+    stroke: rgba(230, 230, 226, 0.06);
+  }
+
+  .score-ring-fill {
+    stroke: url(#scoreGradient);
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  /* Sidebar */
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer;
+    color: var(--text-secondary);
+  }
+
+  .sidebar-item:hover {
+    background: rgba(230, 230, 226, 0.04);
+    color: var(--text);
+  }
+
+  .sidebar-item.active {
+    background: rgba(24, 186, 221, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(24, 186, 221, 0.15);
+  }
+
+  /* Page header */
+  .page-header {
+    @apply mb-8;
+  }
+
+  .page-title {
+    @apply text-2xl font-display font-semibold text-text;
+    letter-spacing: -0.02em;
+  }
+
+  .page-subtitle {
+    @apply text-sm text-text-secondary mt-1;
+  }
+}
+
+/* ─── Utility Layer ───────────────────────────────────────────────────────────── */
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 30px rgba(24, 186, 221, 0.2);
+  }
+
+  .border-subtle {
+    border: 1px solid rgba(230, 230, 226, 0.08);
+  }
+
+  .bg-glass {
+    background: rgba(59, 61, 85, 0.7);
+    backdrop-filter: blur(20px);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
